@@ -4,6 +4,7 @@ import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import {generateAccessToken, generateRefreshToken, cookieOptions} from "../utils/generateTokens.js";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 // ── Register method ──────────────────────────────────────────
 export const register = asyncHandler(async (req, res) => {
@@ -69,3 +70,43 @@ export const logout = asyncHandler(async (req, res) => {
         new ApiResponse(200, null, "Logged out")
     );
 });
+
+// ── Refresh Token method ──────────────────────────────────────────
+export const refreshToken = asyncHandler(async (req, res) => {
+    const token = req.cookies?.refreshToken;
+
+    if(!token) throw new ApiError(401, "Refresh token missing");
+
+    let data;
+
+    try{
+        data = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
+    }
+    catch (err) {
+        throw new ApiError(401, "Invalid or expired refresh token");
+    }
+
+    const user = await User.findById(data.id);
+    
+    if(!user || user.refreshToken !== token) throw new ApiError(401, "Invalid refresh token");
+
+    const newAccess = generateAccessToken(user._id);
+    const newRefresh = generateRefreshToken(user._id);
+
+    user.refreshToken = newRefresh;
+    await user.save();
+
+    res.cookie("accessToken", newAccess, {...cookieOptions, maxAge: 15*60*1000});
+    res.cookie("refreshToken", newRefresh, cookieOptions);
+
+    return res.status(200).json(
+        new ApiResponse(200, null, "Token refreshed")
+    );
+});
+
+// ── Profile method ──────────────────────────────────────────
+export const me = (req, res) => {
+    return res.status(200).json(
+        new ApiResponse(200, req.user, "Profile fetched")
+    );
+}

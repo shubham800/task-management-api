@@ -31,3 +31,31 @@ export const register = asyncHandler(async (req, res) => {
         new ApiResponse(201, user, "Registration successful")
     );
 });
+
+// ── Login method ──────────────────────────────────────────
+export const login = asyncHandler(async (req, res) => {
+    const {email, password} = req.body;
+
+    if(!email || !password){
+        throw new ApiError(400, "All fields are required");
+    }
+
+    const user = await User.findOne({ email }).select("+password");
+    if(!user) throw new ApiError(409, "Invalid email or password");
+
+    const isMatch = await user.comparePassword(password);
+    if(!isMatch) throw new ApiError(409, "Invalid email or password");
+
+    const accessToken = generateAccessToken(user._id);
+    const refreshToken = generateRefreshToken(user._id);
+
+    user.refreshToken = refreshToken;
+    await user.save();
+
+    res.cookie("accessToken", accessToken, {...cookieOptions, maxAge: 15*60*1000});
+    res.cookie("refreshToken", refreshToken, cookieOptions);
+
+    return res.status(200).json(
+        new ApiResponse(200, user, "Login successful")
+    );
+});

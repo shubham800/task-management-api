@@ -8,7 +8,7 @@ import { fileURLToPath } from "url";
 
 
 import authRoutes from "./routes/auth.routes.js";
-// import orgRoutes from "./routes/org.routes.js";
+import orgRoutes from "./routes/org.routes.js";
 // import projectRoutes from "./routes/project.routes.js";
 // import taskRoutes from "./routes/task.routes.js";
 
@@ -34,7 +34,7 @@ app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 
 // Routes
 app.use("/api/auth", authRoutes);
-// app.use("/api/org", orgRoutes);
+app.use("/api/org", orgRoutes);
 // app.use("/api/project", projectRoutes);
 // app.use("/api/task", taskRoutes);
 

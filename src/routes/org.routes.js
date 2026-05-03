@@ -14,7 +14,4 @@ router.post("/orgs/:orgId/invite", protect, requireRole("admin"), inviteMemberTo
 router.put("/orgs/:orgId/members/:userId/role", protect, requireRole("admin"), updateRole);
 router.delete("/orgs/:orgId/members/:userId", protect, requireRole("admin"), removeMember);
 
-// router.get("/orgs:orgId/projects", protect, );
-// router.post("/orgs:orgId/projects", protect, );
-
 export default router;

@@ -4,7 +4,7 @@ import Organization from "../models/Organization.js";
 // Check user role within an organization
 const requireRole = (...roles) => async (req, res, next) => {
     try{
-        const orgId = req.params.orgId || req.body.orgId;
+        const orgId = req.params.orgId;
         const org = await Organization.findOne({_id: orgId, isDeleted: false});
         if(!org) throw new ApiError(404, "Organization not found");
 

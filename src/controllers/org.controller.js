@@ -2,18 +2,8 @@ import Organization from "../models/Organization.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import ApiError from "../utils/ApiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import {generateAccessToken, generateRefreshToken, cookieOptions} from "../utils/generateTokens.js";
-import crypto from "crypto";
+import generateSlug from "../utils/generateSlug.js";
 import User from "../models/User.js";
-
-export const generateSlug = (name) => {
-    return name
-        .toLowerCase()                // lowercase
-        .trim()                      // remove extra spaces
-        .replace(/[^a-z0-9\s-]/g, "") // remove special chars
-        .replace(/\s+/g, "-")        // spaces → -
-        .replace(/-+/g, "-");        // remove duplicate -
-};
 
 // ── Organization create method ──────────────────────────────────────────
 export const createOrganization = asyncHandler(async (req, res) => {

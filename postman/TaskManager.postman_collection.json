@@ -1,0 +1,484 @@
+{
+  "info": {
+    "_postman_id": "d6bc97e6-d7cb-42fd-b0e5-db882eb9936b",
+    "name": "Task Management API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "51317766"
+  },
+  "item": [
+    {
+      "name": "01 - Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status is 201\", () => {\r",
+                  "  pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Success is true\", () => {\r",
+                  "  pm.expect(res.success).to.be.true;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User id exists\", () => {\r",
+                  "  pm.expect(res.data?.user?._id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "if (res.data?.user?._id) {\r",
+                  "  pm.environment.set(\"userId\", res.data.user._id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"User 2\",\r\n    \"email\": \"user2@gmail.com\",\r\n    \"password\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status is 200\", () => {\r",
+                  "  pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Success is true\", () => {\r",
+                  "  pm.expect(res.success).to.be.true;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"email\": \"test@test.com\",\r\n    \"password\": \"password123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Refresh Token",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh-token",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh-token"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Profile",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/auth/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "me"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "02 - Organizations",
+      "item": [
+        {
+          "name": "Create Organization",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();\r",
+                  "pm.test(\"Status is 201\", () => {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "if(res.data?._id) {\r",
+                  "    pm.environment.set(\"orgId\", res.data._id);\r",
+                  "}"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"My First Company 2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Organization",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs/69f24cd282f3f5f2a6cc171c",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs",
+                "69f24cd282f3f5f2a6cc171c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Organization",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"My Updated Company\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs/69f24cd282f3f5f2a6cc171c",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs",
+                "69f24cd282f3f5f2a6cc171c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Organization",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs/69f24cd282f3f5f2a6cc171c",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs",
+                "69f24cd282f3f5f2a6cc171c"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Invite Member to Organization",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"email\": \"user2@gmail.com\",\r\n  \"role\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs/69f76f7f62c3a5f9a22ae22f/invite",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs",
+                "69f76f7f62c3a5f9a22ae22f",
+                "invite"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Member Role in Organization",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"role\": \"admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs/69f76f7f62c3a5f9a22ae22f/members/69ed0ec0441580674a6713e1/role",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs",
+                "69f76f7f62c3a5f9a22ae22f",
+                "members",
+                "69ed0ec0441580674a6713e1",
+                "role"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Remove Member from Organization",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/org/orgs/69f76f7f62c3a5f9a22ae22f/members/69f7701e62c3a5f9a22ae233",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "org",
+                "orgs",
+                "69f76f7f62c3a5f9a22ae22f",
+                "members",
+                "69f7701e62c3a5f9a22ae233"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "03 - Projects",
+      "item": [
+        {
+          "name": "Create Project",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"name\": \"Project 1\",\r\n    \"description\": \"This is a Project\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/project/69f76f7f62c3a5f9a22ae22f/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "project",
+                "69f76f7f62c3a5f9a22ae22f",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Project List",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/project/69f76f7f62c3a5f9a22ae22f/projects",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "project",
+                "69f76f7f62c3a5f9a22ae22f",
+                "projects"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Project",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"name\": \"Project 123\",\r\n    \"description\": \"This is a Project 123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/project/69f76f7f62c3a5f9a22ae22f/projects/6a0212860ffc0570446ed32f",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "project",
+                "69f76f7f62c3a5f9a22ae22f",
+                "projects",
+                "6a0212860ffc0570446ed32f"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Project",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/project/69f76f7f62c3a5f9a22ae22f/projects/6a0212860ffc0570446ed32f",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "project",
+                "69f76f7f62c3a5f9a22ae22f",
+                "projects",
+                "6a0212860ffc0570446ed32f"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "04 - Tasks",
+      "item": []
+    },
+    {
+      "name": "05 - Comments",
+      "item": []
+    },
+    {
+      "name": "06 - File Upload",
+      "item": []
+    }
+  ]
+}

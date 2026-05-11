@@ -12,8 +12,8 @@ Implements multi-tenant architecture with role-based access control.
 
 ## Project Status
 - [x] Milestone 1 — Authentication System
-- [ ] Milestone 2 — Organizations
-- [ ] Milestone 3 — Projects
+- [x] Milestone 2 — Organizations
+- [x] Milestone 3 — Projects
 - [ ] Milestone 4 — Tasks & Comments
 
 ## Getting Started
@@ -60,3 +60,13 @@ src/
 ├── routes/         # API routes
 └── utils/          # Helpers
 ```
+
+## API Testing
+
+Postman collection is available in the `/postman` directory.
+
+**Setup:**
+1. Import `TaskManager.postman_collection.json` into Postman
+2. Import `TaskManager.postman_environment.json` and select it
+3. Run **Login** request first — token auto-sets via test script
+4. All subsequent requests use the token automatically

@@ -377,7 +377,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{   \r\n    \"name\": \"Project 1\",\r\n    \"description\": \"This is a Project\"\r\n}",
+              "raw": "{   \r\n    \"name\": \"Project 2\",\r\n    \"description\": \"This is a Project 2\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -470,7 +470,141 @@
     },
     {
       "name": "04 - Tasks",
-      "item": []
+      "item": [
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"title\": \"Task 1\",\r\n    \"description\": \"This is a task 1\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/task/69f76f7f62c3a5f9a22ae22f/6a07540aa868039d59debe37/tasks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "task",
+                "69f76f7f62c3a5f9a22ae22f",
+                "6a07540aa868039d59debe37",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Task List",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/task/69f76f7f62c3a5f9a22ae22f/6a07540aa868039d59debe37/tasks",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "task",
+                "69f76f7f62c3a5f9a22ae22f",
+                "6a07540aa868039d59debe37",
+                "tasks"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{   \r\n    \"title\": \"Fix this bug abc\",\r\n    \"description\": \"Fix this bug abc\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/task/69f76f7f62c3a5f9a22ae22f/6a07540aa868039d59debe37/tasks/6a08ab7df1a50bfe281a4d43",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "task",
+                "69f76f7f62c3a5f9a22ae22f",
+                "6a07540aa868039d59debe37",
+                "tasks",
+                "6a08ab7df1a50bfe281a4d43"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/task/69f76f7f62c3a5f9a22ae22f/6a07540aa868039d59debe37/tasks/6a075473a868039d59debe3d",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "task",
+                "69f76f7f62c3a5f9a22ae22f",
+                "6a07540aa868039d59debe37",
+                "tasks",
+                "6a075473a868039d59debe3d"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Task Detail",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/task/69f76f7f62c3a5f9a22ae22f/6a07540aa868039d59debe37/tasks/6a08ab7df1a50bfe281a4d43",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "task",
+                "69f76f7f62c3a5f9a22ae22f",
+                "6a07540aa868039d59debe37",
+                "tasks",
+                "6a08ab7df1a50bfe281a4d43"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "05 - Comments",
